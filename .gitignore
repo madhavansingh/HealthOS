@@ -1,0 +1,81 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Production builds
+dist/
+dist-ssr/
+build/
+
+# Environment configurations and secrets
+.env
+.env.*
+!.env.example
+server/.env
+server/.env.*
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Local SQLite databases, WAL, and SHM files
+*.db
+*.sqlite
+*.sqlite3
+server/db/*.db
+server/db/*.db-wal
+server/db/*.db-shm
+db/*.db
+*.db-journal
+
+# Ephemeral user uploads
+uploads/
+server/uploads/
+**/uploads/
+*sterling-accuris-pathology-sample-report*.pdf
+
+# Logs and debug archives
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS and system files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+
+# IDE and editors config
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+.settings/
+
+# Test coverage
+coverage/
+*.lcov
+
+# Google Cloud, AWS & Service Accounts
+*credentials*.json
+*service-account*.json
+*service_account*.json
+*.pem
+*.key
+*.p12
+*.pub
+gcloud-*.json
+
+server/.env
+.env
