@@ -1,5 +1,4 @@
 const path = require('path');
-const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 
 const { getDb } = require('./db/database');

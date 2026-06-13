@@ -1,5 +1,5 @@
 const { getDb } = require('../connection');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 
 class ChatRepository {
   static getSessionMessages(sessionId, userId = 'default-user') {
@@ -9,7 +9,7 @@ class ChatRepository {
 
   static addMessage(msg) {
     const db = getDb();
-    const id = msg.id || uuidv4();
+    const id = msg.id || randomUUID();
     db.prepare(`
       INSERT INTO chat_messages (id, session_id, user_id, role, content)
       VALUES (?, ?, ?, ?, ?)

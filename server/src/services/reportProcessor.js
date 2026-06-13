@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const Tesseract = require('tesseract.js');
 const { getDb } = require('../database/connection');

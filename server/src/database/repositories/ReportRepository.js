@@ -1,5 +1,5 @@
 const { getDb } = require('../connection');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 
 class ReportRepository {
   static findById(id) {
@@ -98,7 +98,7 @@ class ReportRepository {
 
   static addMetric(metric) {
     const db = getDb();
-    const id = metric.id || uuidv4();
+    const id = metric.id || randomUUID();
     db.prepare(`
       INSERT INTO report_metrics (id, report_id, metric_name, value, value_text, unit, reference_low, reference_high, status, category, confidence, source)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)

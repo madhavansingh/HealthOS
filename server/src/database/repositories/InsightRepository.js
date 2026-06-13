@@ -1,5 +1,5 @@
 const { getDb } = require('../connection');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 
 class InsightRepository {
   static getInsightsByUserId(userId, limit = 20) {
@@ -16,7 +16,7 @@ class InsightRepository {
 
   static addInsight(insight) {
     const db = getDb();
-    const id = insight.id || uuidv4();
+    const id = insight.id || randomUUID();
     db.prepare(`
       INSERT INTO ai_insights (id, report_id, user_id, category, severity, title, description, metric, icon, sources)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)

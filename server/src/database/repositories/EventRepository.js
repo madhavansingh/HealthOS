@@ -1,5 +1,5 @@
 const { getDb } = require('../connection');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 
 class EventRepository {
   static findByUserId(userId, limit = 20) {
@@ -15,7 +15,7 @@ class EventRepository {
 
   static addEvent(event) {
     const db = getDb();
-    const id = event.id || uuidv4();
+    const id = event.id || randomUUID();
     db.prepare(`
       INSERT INTO health_events (id, user_id, report_id, date, type, title, detail, color)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)

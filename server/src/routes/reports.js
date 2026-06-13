@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 const ReportsController = require('../controllers/reportsController');
 const storageConfig = require('../config/storage');
 
@@ -10,7 +10,7 @@ const router = express.Router();
 const storage = multer.diskStorage({
   destination: storageConfig.uploadsDir,
   filename: (req, file, cb) => {
-    cb(null, `${uuidv4()}-${file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_')}`);
+    cb(null, `${randomUUID()}-${file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_')}`);
   },
 });
 

@@ -1,5 +1,5 @@
 const { getDb } = require('../connection');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 
 class PreventiveRepository {
   static findByUserId(userId) {
@@ -9,7 +9,7 @@ class PreventiveRepository {
 
   static addPreventiveCare(item) {
     const db = getDb();
-    const id = item.id || uuidv4();
+    const id = item.id || randomUUID();
     db.prepare(`
       INSERT INTO preventive_care (id, user_id, title, due, priority, reason, specialist, done)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)

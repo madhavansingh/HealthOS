@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 const ReportRepository = require('../database/repositories/ReportRepository');
 const InsightRepository = require('../database/repositories/InsightRepository');
 const TimelineRepository = require('../database/repositories/TimelineRepository');
@@ -14,7 +14,7 @@ class ReportsService {
       throw new Error('No file uploaded');
     }
 
-    const reportId = uuidv4();
+    const reportId = randomUUID();
     const reportName = customName || path.basename(file.originalname, path.extname(file.originalname));
 
     ReportRepository.create({
@@ -64,7 +64,7 @@ class ReportsService {
       throw new Error(`Demo file not found at ${srcPath}`);
     }
 
-    const reportId = uuidv4();
+    const reportId = randomUUID();
     const destFilename = `${reportId}-demo-${srcFilename}`;
     const destDir = storageConfig.uploadsDir;
 

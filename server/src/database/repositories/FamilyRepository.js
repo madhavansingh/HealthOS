@@ -1,5 +1,5 @@
 const { getDb } = require('../connection');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 
 class FamilyRepository {
   static findByUserId(userId) {
@@ -13,7 +13,7 @@ class FamilyRepository {
 
   static addMember(member) {
     const db = getDb();
-    const id = member.id || uuidv4();
+    const id = member.id || randomUUID();
     db.prepare(`
       INSERT INTO family_members (id, user_id, name, relation, age, score, conditions, last_checkup)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)

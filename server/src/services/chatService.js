@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 const ChatRepository = require('../database/repositories/ChatRepository');
 const UserRepository = require('../database/repositories/UserRepository');
 const ReportRepository = require('../database/repositories/ReportRepository');
@@ -16,7 +16,7 @@ class ChatService {
   }
 
   static async *streamChatResponse(message, sessionId, userId = 'default-user') {
-    const sid = sessionId || uuidv4();
+    const sid = sessionId || randomUUID();
 
     // Store user message
     ChatRepository.addMessage({

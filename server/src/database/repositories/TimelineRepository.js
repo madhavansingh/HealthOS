@@ -1,5 +1,5 @@
 const { getDb } = require('../connection');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 
 class TimelineRepository {
   // --- Vitals Timeline ---
@@ -10,7 +10,7 @@ class TimelineRepository {
 
   static addVital(vital) {
     const db = getDb();
-    const id = vital.id || uuidv4();
+    const id = vital.id || randomUUID();
     db.prepare(`
       INSERT INTO vitals_timeline (id, user_id, report_id, date, metric_name, value, unit)
       VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -48,7 +48,7 @@ class TimelineRepository {
 
   static addHealthScore(score) {
     const db = getDb();
-    const id = score.id || uuidv4();
+    const id = score.id || randomUUID();
     db.prepare(`
       INSERT INTO health_scores (id, user_id, date, overall, cardiovascular, metabolic, sleep, activity, mental, nutrition)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
