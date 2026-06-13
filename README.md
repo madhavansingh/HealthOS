@@ -420,9 +420,6 @@ To deploy the React application:
 
 *Screenshots representing the HealthOS production experience.*
 
-### Landing Page
-![Landing Page](/Users/maddy/HealthOS-MLH/src/assets/hero.png)
-
 ### Processing Pipeline
 *A sleek, glassmorphic upload interface showing document classification, OCR parsing progress, and validation.*
 
