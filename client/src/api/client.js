@@ -1,6 +1,16 @@
-// HealthOS API Client — connects frontend to backend
+let rawApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+// Normalize: remove trailing slash if present
+if (rawApiUrl.endsWith('/')) {
+  rawApiUrl = rawApiUrl.slice(0, -1);
+}
+
+// Normalize: ensure it ends with /api
+if (!rawApiUrl.endsWith('/api')) {
+  rawApiUrl = `${rawApiUrl}/api`;
+}
+
+const API_BASE = rawApiUrl;
 
 async function apiFetch(endpoint, options = {}) {
   try {

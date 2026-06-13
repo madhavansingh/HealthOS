@@ -100,9 +100,39 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message || 'Internal server error' });
 });
 
+// Function to print all registered routes
+function printRoutes() {
+  console.log('\n=== Registered Express Routes ===');
+  console.log('[Router] GET    /api/health');
+  console.log('[Router] POST   /api/reports/upload');
+  console.log('[Router] POST   /api/reports/analyze-demo');
+  console.log('[Router] GET    /api/reports');
+  console.log('[Router] GET    /api/reports/compare');
+  console.log('[Router] GET    /api/reports/:id');
+  console.log('[Router] GET    /api/reports/:id/status');
+  console.log('[Router] DELETE /api/reports/:id');
+  console.log('[Router] GET    /api/insights/trends');
+  console.log('[Router] GET    /api/insights/summary');
+  console.log('[Router] GET    /api/insights/twin');
+  console.log('[Router] POST   /api/chat/message');
+  console.log('[Router] GET    /api/dashboard/summary');
+  console.log('[Router] GET    /api/copilot/brief');
+  console.log('[Router] GET    /api/graph/graph');
+  console.log('[Router] POST   /api/simulator/simulator');
+  console.log('[Router] GET    /api/timeline/vitals');
+  console.log('[Router] GET    /api/timeline/events');
+  console.log('[Router] GET    /api/preventive/preventive');
+  console.log('[Router] GET    /api/family/family');
+  console.log('[Router] GET    /api/journey/journey');
+  console.log('[Route]  GET    /api/mission-control');
+  console.log('[Route]  GET    /api/twin/history');
+  console.log('=================================\n');
+}
+
 app.listen(PORT, () => {
   console.log(`\n🚀 HealthOS Backend running on http://localhost:${PORT}`);
   console.log(`📊 API health: http://localhost:${PORT}/api/health`);
+  printRoutes();
   const key = env.GEMINI_API_KEY;
   if (!key || key === 'your_gemini_api_key_here') {
     console.log('\n⚠️  GEMINI_API_KEY not set! Add your key to server/.env');
