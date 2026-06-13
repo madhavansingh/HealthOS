@@ -1,0 +1,27 @@
+# Exclude dependencies
+node_modules/
+**/node_modules/
+
+# Exclude local database files and folder
+db/
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Exclude uploads
+uploads/
+server/uploads/
+
+# Exclude environment files
+.env
+.env.*
+
+# Exclude debug logs and git folders
+logs/
+*.log
+npm-debug.log*
+.git
+.gitignore
