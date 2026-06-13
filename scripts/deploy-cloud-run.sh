@@ -42,9 +42,12 @@ echo -e "\n📤 Pushing image to Container Registry..."
 docker push $IMAGE_NAME
 
 # 4. Deploy the image to Cloud Run
-# Note: GEMINI_API_KEY must be supplied. If it is already set in your terminal environment,
-# it will be passed, otherwise it defaults to a placeholder.
-GEMINI_KEY="${GEMINI_API_KEY:-your_gemini_api_key_here}"
+# Note: GEMINI_API_KEY will be loaded from server/.env if it exists,
+# otherwise fallback to the current shell's GEMINI_API_KEY, or placeholder.
+if [ -f server/.env ]; then
+  GEMINI_KEY=$(grep -E "^GEMINI_API_KEY=" server/.env | cut -d'=' -f2- | tr -d '\r' | tr -d '"' | tr -d "'")
+fi
+GEMINI_KEY="${GEMINI_KEY:-${GEMINI_API_KEY:-your_gemini_api_key_here}}"
 
 echo -e "\n🚢 Deploying to Google Cloud Run..."
 gcloud run deploy $SERVICE_NAME \
@@ -52,7 +55,7 @@ gcloud run deploy $SERVICE_NAME \
   --platform managed \
   --region $REGION \
   --allow-unauthenticated \
-  --set-env-vars="NODE_ENV=production,GEMINI_API_KEY=$GEMINI_KEY,PORT=8080" \
+  --set-env-vars="NODE_ENV=production,GEMINI_API_KEY=$GEMINI_KEY,PORT=8080,DB_PATH=./db/healthos.db,UPLOADS_DIR=./uploads,MAX_FILE_SIZE=20971520" \
   --memory=1Gi \
   --cpu=1
 

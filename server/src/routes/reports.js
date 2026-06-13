@@ -22,7 +22,9 @@ const upload = multer({
     if (storageConfig.supportedExtensions.includes(ext)) {
       cb(null, true);
     } else {
-      cb(new Error(`Only ${storageConfig.supportedExtensions.join(', ')} files are supported`));
+      const err = new Error(`Only ${storageConfig.supportedExtensions.join(', ')} files are supported`);
+      err.code = 'UNSUPPORTED_FILE_TYPE';
+      cb(err);
     }
   },
 });

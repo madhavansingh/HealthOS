@@ -69,9 +69,34 @@ app.get('/api/health', (req, res) => {
 // Error handler
 app.use((err, req, res, next) => {
   console.error('Express error:', err.message);
-  if (err.code === 'LIMIT_FILE_SIZE') {
-    return res.status(400).json({ error: 'File too large. Max 20MB.' });
+
+  // 1. CORS Rejection
+  if (err.message === 'Not allowed by CORS') {
+    const origin = req.headers.origin;
+    if (origin) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+    }
+    return res.status(403).json({ error: 'CORS rejection: Origin not allowed' });
   }
+
+  // 2. File too large (Multer limit)
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    const maxMb = Math.round(env.MAX_FILE_SIZE / (1024 * 1024)) || 20;
+    return res.status(400).json({ error: `File too large. Max ${maxMb}MB.` });
+  }
+
+  // 3. Unsupported file type (Multer filter)
+  if (err.code === 'UNSUPPORTED_FILE_TYPE') {
+    return res.status(400).json({ error: err.message });
+  }
+
+  // 4. Other Multer errors (e.g., unexpected field)
+  if (err.name === 'MulterError') {
+    return res.status(400).json({ error: `Upload error: ${err.message}` });
+  }
+
+  // 5. Catch-all Internal Server Error
   res.status(500).json({ error: err.message || 'Internal server error' });
 });
 
