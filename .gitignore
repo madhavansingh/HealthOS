@@ -21,6 +21,8 @@ server/.env.*
 
 # Local SQLite databases, WAL, and SHM files
 *.db
+*.db-wal
+*.db-shm
 *.sqlite
 *.sqlite3
 server/db/*.db
